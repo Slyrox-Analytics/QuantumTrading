@@ -11,13 +11,13 @@ import requests
 def get_futures_price(symbol: str):
     try:
         r = requests.get(
-            "https://fapi.binance.com/fapi/v1/ticker/price",
+            "https://api.binance.com/api/v3/ticker/price",
             params={"symbol": symbol},
             timeout=5
         )
         r.raise_for_status()
         return float(r.json()["price"])
-    except Exception:
+    except:
         return None
 
 # ---------------- CONFIG ----------------
