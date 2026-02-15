@@ -273,10 +273,10 @@ elif page=="Sonstiges":
     st.markdown("""
 ### Erklärung der Kennzahlen
 
-**PnL**
+**PnL (Profit & Loss)**
 → Gewinn oder Verlust eines Trades in $
 
-**ROI**
+**ROI (Return on Investment)**
 → Rendite basierend auf eingesetzter Margin  
 Formel:
 ROI = Gewinn ÷ Margin × 100
