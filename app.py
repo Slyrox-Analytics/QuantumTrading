@@ -6,20 +6,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 import plotly.express as px
 from components.charts import tradingview_widget
-import requests
 
-def get_futures_price(symbol: str):
-    try:
-        r = requests.get(
-    "https://api.binance.com/api/v3/ticker/price",
-    params={"symbol": symbol},
-    headers={"User-Agent": "Mozilla/5.0"},
-    timeout=10
-)
-        r.raise_for_status()
-        return float(r.json()["price"])
-    except:
-        return None
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="QuantumTrading", layout="wide")
@@ -321,23 +308,38 @@ ROI = Gewinn ÷ Margin × 100
 Hier kannst du jederzeit Code-Notizen oder Trading-Regeln eintragen.
 """)
 
-# =====================================================
-# CHARTS
-# =====================================================
-elif page=="Charts":
+# =========================
+# CHARTS PAGE
+# =========================
+elif page == "Charts":
+
+    # --- Ticker oben ---
+    st.components.v1.html("""
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript"
+      src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+      async>
+      {
+        "symbols": [
+          {"proName":"BINANCE:BTCUSDT.P","title":"BTC"},
+          {"proName":"BINANCE:SOLUSDT.P","title":"SOL"}
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": true,
+        "displayMode":"adaptive",
+        "colorTheme":"dark",
+        "locale":"en"
+      }
+      </script>
+    </div>
+    """, height=80)
 
     st.subheader("Live Charts")
 
-    # Live Preise
-    col1, col2 = st.columns(2)
-
-    btc = get_futures_price("BTCUSDT")
-    sol = get_futures_price("SOLUSDT")
-
-    col1.metric("BTCUSDT.P", f"{btc:,.2f}" if btc else "n/a")
-    col2.metric("SOLUSDT.P", f"{sol:,.4f}" if sol else "n/a")
-
-    # Charts
+    # --- BTC Chart ---
     tradingview_widget("BINANCE:BTCUSDT.P", height=450)
+
+    # --- SOL Chart ---
     tradingview_widget("BINANCE:SOLUSDT.P", height=450)
 
