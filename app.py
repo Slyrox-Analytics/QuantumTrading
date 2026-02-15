@@ -148,7 +148,8 @@ if page=="Dashboard":
         # RANGE FILTER
         days = st.selectbox("Range", [7,30,90,180], index=1)
 
-        df["dt"]=pd.to_datetime(df["time"],errors="coerce")
+        df["dt"] = pd.to_datetime(df["time"], errors="coerce")
+        df["dt"] = df["dt"].clip(upper=pd.Timestamp.now())
         df["dt"]=df["dt"].dt.tz_localize(TZ, nonexistent="shift_forward", ambiguous="NaT")
 
         cutoff=pd.Timestamp.now(TZ)-pd.Timedelta(days=int(days))
