@@ -66,15 +66,43 @@ div[data-testid="stDownloadButton"] button{
 """, unsafe_allow_html=True)
 
 # ---------------- DATA ----------------
+import requests
+import base64
+
+GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
+REPO = st.secrets["slyrox-analytics/QuantumTrading"]
+FILE_PATH = "trades.json"
+
 def load_trades():
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE,"r",encoding="utf-8") as f:
-            return json.load(f)
+    url = f"https://api.github.com/repos/{REPO}/contents/{FILE_PATH}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    r = requests.get(url, headers=headers)
+
+    if r.status_code == 200:
+        content = base64.b64decode(r.json()["content"]).decode()
+        return json.loads(content)
+
     return []
 
 def save_trades(data):
-    with open(DATA_FILE,"w",encoding="utf-8") as f:
-        json.dump(data,f,indent=2,ensure_ascii=False)
+    url = f"https://api.github.com/repos/{REPO}/contents/{FILE_PATH}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+
+    r = requests.get(url, headers=headers)
+
+    sha = None
+    if r.status_code == 200:
+        sha = r.json()["sha"]
+
+    encoded = base64.b64encode(json.dumps(data, indent=2).encode()).decode()
+
+    payload = {
+        "message": "update trades",
+        "content": encoded,
+        "sha": sha
+    }
+
+    requests.put(url, headers=headers, json=payload)
 
 trades=load_trades()
 df=pd.DataFrame(trades)
