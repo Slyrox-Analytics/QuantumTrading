@@ -147,8 +147,7 @@ st.sidebar.metric("Trades",total)
 st.sidebar.metric("Total PnL",pnl)
 
 if st.sidebar.button("Reset ALL Data"):
-    if os.path.exists(DATA_FILE):
-        os.remove(DATA_FILE)
+    save_trades([])
     st.rerun()
 
 # =====================================================
