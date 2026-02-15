@@ -13,8 +13,6 @@ DATA_FILE = "trades.json"
 # ---------------- STYLE ----------------
 st.markdown("""
 <style>
-
-/* BACKGROUND */
 .stApp {
     background: radial-gradient(circle at 20% 0%, rgba(0,255,200,0.15), transparent 40%),
                 radial-gradient(circle at 80% 0%, rgba(0,140,255,0.15), transparent 40%),
@@ -22,7 +20,6 @@ st.markdown("""
     color:#d7fff7;
 }
 
-/* SIDEBAR */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg,#03121a,#02060a);
     border-right:1px solid rgba(0,255,200,0.4);
@@ -32,19 +29,16 @@ section[data-testid="stSidebar"] * {
     color:#9ffcff !important;
 }
 
-/* SIDEBAR METRIC */
 section[data-testid="stSidebar"] div[data-testid="stMetricValue"] {
     color:#00ffd0 !important;
     font-weight:bold;
 }
 
-/* -------- LABEL TEXT FIX -------- */
 label {
     color:#00ffd0 !important;
     font-weight:600 !important;
 }
 
-/* INPUTS */
 div[data-testid="stTextInput"] input,
 div[data-testid="stNumberInput"] input,
 div[data-testid="stTextArea"] textarea {
@@ -53,14 +47,12 @@ div[data-testid="stTextArea"] textarea {
     border:1px solid rgba(0,255,200,0.6) !important;
 }
 
-/* SELECT */
 div[data-baseweb="select"] > div {
     background:#02141c !important;
     border:1px solid rgba(0,255,200,0.6) !important;
     color:#cfffff !important;
 }
 
-/* BUTTON */
 .stButton button {
     background:#02141c;
     border:1px solid rgba(0,255,200,0.6);
@@ -73,7 +65,6 @@ div[data-baseweb="select"] > div {
     box-shadow:0 0 12px rgba(0,255,200,0.4);
 }
 
-/* CARDS */
 .card {
     border:1px solid rgba(0,255,200,0.4);
     padding:15px;
@@ -81,10 +72,8 @@ div[data-baseweb="select"] > div {
     background:rgba(0,255,200,0.05);
     text-align:center;
 }
-
 </style>
 """, unsafe_allow_html=True)
-
 
 # ---------------- DATA ----------------
 def load_trades():
@@ -156,8 +145,7 @@ if page == "Dashboard":
 # =====================================================
 elif page == "New Trade":
 
-    pair = st.text_input("Pair")
-    setup = st.text_input("Setup")
+    pair = st.selectbox("Pair", ["BTCUSDT","SOLUSDT"])
 
     col1,col2,col3 = st.columns(3)
 
@@ -177,7 +165,6 @@ elif page == "New Trade":
             "id": str(uuid.uuid4())[:8],
             "time": str(datetime.now()),
             "pair": pair,
-            "setup": setup,
             "side": side,
             "rr": rr,
             "pnl": pnl_value,
@@ -210,12 +197,6 @@ elif page == "Analytics":
         st.info("No trades yet")
 
     else:
-
-        st.subheader("PnL by Setup")
-        fig = px.bar(df.groupby("setup")["pnl"].sum().reset_index(),
-                     x="setup", y="pnl", template="plotly_dark")
-        st.plotly_chart(fig, use_container_width=True)
-
         st.subheader("PnL by Pair")
         fig2 = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
                       x="pair", y="pnl", template="plotly_dark")
