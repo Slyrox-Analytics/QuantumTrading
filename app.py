@@ -19,26 +19,21 @@ st.markdown("""
                 #020409;
     color:#d7fff7;
 }
-
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg,#03121a,#02060a);
     border-right:1px solid rgba(0,255,200,0.4);
 }
-
 section[data-testid="stSidebar"] * {
     color:#9ffcff !important;
 }
-
 section[data-testid="stSidebar"] div[data-testid="stMetricValue"] {
     color:#00ffd0 !important;
     font-weight:bold;
 }
-
 label {
     color:#00ffd0 !important;
     font-weight:600 !important;
 }
-
 div[data-testid="stTextInput"] input,
 div[data-testid="stNumberInput"] input,
 div[data-testid="stTextArea"] textarea {
@@ -46,25 +41,21 @@ div[data-testid="stTextArea"] textarea {
     color:#cfffff !important;
     border:1px solid rgba(0,255,200,0.6) !important;
 }
-
 div[data-baseweb="select"] > div {
     background:#02141c !important;
     border:1px solid rgba(0,255,200,0.6) !important;
     color:#cfffff !important;
 }
-
 .stButton button {
     background:#02141c;
     border:1px solid rgba(0,255,200,0.6);
     color:#9ffcff;
 }
-
 .stButton button:hover {
     background:#03232c;
     border:1px solid #00ffd0;
     box-shadow:0 0 12px rgba(0,255,200,0.4);
 }
-
 .card {
     border:1px solid rgba(0,255,200,0.4);
     padding:15px;
@@ -136,12 +127,40 @@ if page == "Dashboard":
 
     st.divider()
 
+    # ---------- PIE CHART ----------
+    if total > 0:
+
+        pie_df = pd.DataFrame({
+            "Result":["Wins","Losses"],
+            "Count":[wins,losses]
+        })
+
+        fig = px.pie(
+            pie_df,
+            names="Result",
+            values="Count",
+            hole=0.6,
+            color="Result",
+            color_discrete_map={
+                "Wins":"#00ffd0",
+                "Losses":"#ff3b5c"
+            }
+        )
+
+        fig.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font_color="#d7fff7",
+            legend_title=""
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    # ---------- EQUITY CURVE ----------
     if not df.empty:
         df["equity"] = df.pnl.cumsum()
-        fig = px.line(df, y="equity", template="plotly_dark")
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.info("No trades yet")
+        fig2 = px.line(df, y="equity", template="plotly_dark")
+        st.plotly_chart(fig2, use_container_width=True)
 
 # =====================================================
 # NEW TRADE
@@ -193,9 +212,8 @@ elif page == "Analytics":
 
     if df.empty:
         st.info("No trades yet")
-
     else:
         st.subheader("PnL by Pair")
-        fig2 = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
-                      x="pair", y="pnl", template="plotly_dark")
-        st.plotly_chart(fig2, use_container_width=True)
+        fig = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
+                     x="pair", y="pnl", template="plotly_dark")
+        st.plotly_chart(fig, use_container_width=True)
