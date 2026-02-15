@@ -187,7 +187,7 @@ if page=="Dashboard":
             st.plotly_chart(cyberpunk_plot(area),use_container_width=True)
         else:
             st.info("No trades in selected range")
-
+tradingview_widget()
 # =====================================================
 # NEW TRADE
 # =====================================================
