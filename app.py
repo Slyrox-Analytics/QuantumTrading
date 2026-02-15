@@ -70,7 +70,7 @@ import requests
 import base64
 
 GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]
-REPO = st.secrets["slyrox-analytics/QuantumTrading"]
+REPO = st.secrets["REPO"]
 FILE_PATH = "trades.json"
 
 def load_trades():
