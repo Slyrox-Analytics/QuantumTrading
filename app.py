@@ -80,7 +80,6 @@ def load_trades():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE,"r") as f:
             data = json.load(f)
-            # safety clean
             for t in data:
                 t["pnl"] = float(t.get("pnl",0))
                 t["result"] = "Win" if t["pnl"] > 0 else "Loss"
@@ -154,13 +153,11 @@ elif page == "New Trade":
 
     pair = st.selectbox("Pair", ["BTCUSDT","SOLUSDT"])
 
-    col1,col2,col3 = st.columns(3)
+    col1,col2 = st.columns(2)
 
     with col1:
         side = st.selectbox("Side",["Long","Short"])
     with col2:
-        rr = st.number_input("RR (optional)", step=0.1)
-    with col3:
         pnl_value = st.number_input("PnL", step=0.1)
 
     note = st.text_area("Notes")
@@ -175,7 +172,6 @@ elif page == "New Trade":
             "time": str(datetime.now()),
             "pair": pair,
             "side": side,
-            "rr": rr,
             "pnl": pnl_value,
             "result": result,
             "note": note
