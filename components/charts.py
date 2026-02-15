@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 def tradingview_widget(symbol="BINANCE:BTCUSDT.P", height=600):
 
     html = f"""
-    <div id="tv_chart"></div>
+    <div id="tv_chart" style="width:100%;"></div>
     <script src="https://s3.tradingview.com/tv.js"></script>
     <script>
     new TradingView.widget({{
@@ -23,4 +23,4 @@ def tradingview_widget(symbol="BINANCE:BTCUSDT.P", height=600):
     </script>
     """
 
-    components.html(html, height=height)
+    components.html(html, height=height, scrolling=False)
