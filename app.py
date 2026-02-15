@@ -149,7 +149,7 @@ if page=="Dashboard":
         days = st.selectbox("Range", [7,30,90,180], index=1)
 
         df["dt"] = pd.to_datetime(df["time"], errors="coerce")
-        df["dt"] = df["dt"].dt.tz_localize(TZ)
+        df["dt"] = pd.to_datetime(df["time"], errors="coerce", utc=True).dt.tz_convert(TZ)
 
         cutoff=pd.Timestamp.now(TZ)-pd.Timedelta(days=int(days))
         fdf=df[df["dt"]>=cutoff]
