@@ -8,14 +8,13 @@ import plotly.express as px
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="QuantumTrading", layout="wide")
-
 DATA_FILE = "trades.json"
 
 # ---------------- STYLE ----------------
 st.markdown("""
 <style>
 
-/* Background */
+/* BACKGROUND */
 .stApp {
     background: radial-gradient(circle at 20% 0%, rgba(0,255,200,0.15), transparent 40%),
                 radial-gradient(circle at 80% 0%, rgba(0,140,255,0.15), transparent 40%),
@@ -23,31 +22,40 @@ st.markdown("""
     color:#d7fff7;
 }
 
-/* Sidebar */
+/* SIDEBAR */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg,#03121a,#02060a);
-    border-right:1px solid rgba(0,255,200,0.3);
+    border-right:1px solid rgba(0,255,200,0.4);
 }
 
 section[data-testid="stSidebar"] * {
     color:#9ffcff !important;
 }
 
-/* Inputs */
-input, textarea {
+/* SIDEBAR METRIC FIX */
+section[data-testid="stSidebar"] div[data-testid="stMetricValue"] {
+    color:#00ffd0 !important;
+    font-weight:bold;
+}
+
+/* INPUTS */
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stTextArea"] textarea {
     background:#02141c !important;
     color:#cfffff !important;
-    border:1px solid rgba(0,255,200,0.5) !important;
+    border:1px solid rgba(0,255,200,0.6) !important;
     border-radius:10px !important;
 }
 
-/* Select */
+/* SELECT */
 div[data-baseweb="select"] > div {
     background:#02141c !important;
-    border:1px solid rgba(0,255,200,0.5) !important;
+    border:1px solid rgba(0,255,200,0.6) !important;
+    color:#cfffff !important;
 }
 
-/* Buttons */
+/* BUTTON */
 .stButton button {
     background:#02141c;
     border:1px solid rgba(0,255,200,0.6);
@@ -61,40 +69,31 @@ div[data-baseweb="select"] > div {
     box-shadow:0 0 12px rgba(0,255,200,0.4);
 }
 
-/* Cards */
+/* CARDS */
 .card {
     border:1px solid rgba(0,255,200,0.4);
     padding:15px;
     border-radius:15px;
     background:rgba(0,255,200,0.05);
+    text-align:center;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- LOAD DATA ----------------
+# ---------------- DATA ----------------
 def load_trades():
     if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
+        with open(DATA_FILE,"r") as f:
             return json.load(f)
     return []
 
 def save_trades(data):
-    with open(DATA_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    with open(DATA_FILE,"w") as f:
+        json.dump(data,f,indent=2)
 
 trades = load_trades()
 df = pd.DataFrame(trades)
-
-# ---------------- HEADER ----------------
-st.title("⚡ QuantumTrading Terminal")
-st.caption("Cyberpunk trading logbook + analytics")
-
-# ---------------- SIDEBAR ----------------
-page = st.sidebar.radio(
-    "Navigation",
-    ["Dashboard", "New Trade", "Logbook", "Analytics"]
-)
 
 # ---------------- STATS ----------------
 def stats(df):
@@ -108,26 +107,35 @@ def stats(df):
 
 total,wins,winrate,pnl = stats(df)
 
-st.sidebar.markdown("### Quick Stats")
-st.sidebar.write("Trades:", total)
-st.sidebar.write("Winrate:", f"{winrate}%")
-st.sidebar.write("Total PnL:", pnl)
+# ---------------- HEADER ----------------
+st.title("⚡ QuantumTrading Terminal")
+st.caption("Cyberpunk trading logbook + analytics")
 
-# ==================================================
+# ---------------- SIDEBAR ----------------
+page = st.sidebar.radio("Navigation",
+    ["Dashboard","New Trade","Logbook","Analytics"]
+)
+
+st.sidebar.markdown("### Quick Stats")
+st.sidebar.metric("Trades", total)
+st.sidebar.metric("Winrate", f"{winrate}%")
+st.sidebar.metric("Total PnL", pnl)
+
+# =====================================================
 # DASHBOARD
-# ==================================================
+# =====================================================
 if page == "Dashboard":
 
     c1,c2,c3,c4 = st.columns(4)
 
     with c1:
-        st.markdown('<div class="card"><h3>Trades</h3>'+str(total)+'</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Trades</h3><h2>{total}</h2></div>', unsafe_allow_html=True)
     with c2:
-        st.markdown('<div class="card"><h3>Wins</h3>'+str(wins)+'</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Wins</h3><h2>{wins}</h2></div>', unsafe_allow_html=True)
     with c3:
-        st.markdown('<div class="card"><h3>Winrate</h3>'+str(winrate)+'%</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Winrate</h3><h2>{winrate}%</h2></div>', unsafe_allow_html=True)
     with c4:
-        st.markdown('<div class="card"><h3>Total PnL</h3>'+str(pnl)+'</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Total PnL</h3><h2>{pnl}</h2></div>', unsafe_allow_html=True)
 
     st.divider()
 
@@ -138,9 +146,9 @@ if page == "Dashboard":
     else:
         st.info("No trades yet")
 
-# ==================================================
+# =====================================================
 # NEW TRADE
-# ==================================================
+# =====================================================
 elif page == "New Trade":
 
     pair = st.text_input("Pair")
@@ -149,13 +157,13 @@ elif page == "New Trade":
     col1,col2,col3 = st.columns(3)
 
     with col1:
-        side = st.selectbox("Side", ["Long","Short"])
+        side = st.selectbox("Side",["Long","Short"])
     with col2:
         rr = st.number_input("RR", step=0.1)
     with col3:
         pnl_value = st.number_input("PnL", step=0.1)
 
-    result = st.selectbox("Result", ["Win","Loss"])
+    result = st.selectbox("Result",["Win","Loss"])
     note = st.text_area("Notes")
 
     if st.button("Save Trade"):
@@ -174,12 +182,13 @@ elif page == "New Trade":
 
         trades.append(trade)
         save_trades(trades)
-        st.success("Saved")
+
+        st.success("Trade saved")
         st.rerun()
 
-# ==================================================
+# =====================================================
 # LOGBOOK
-# ==================================================
+# =====================================================
 elif page == "Logbook":
 
     if df.empty:
@@ -187,14 +196,16 @@ elif page == "Logbook":
     else:
         st.dataframe(df, use_container_width=True)
 
-# ==================================================
+# =====================================================
 # ANALYTICS
-# ==================================================
+# =====================================================
 elif page == "Analytics":
 
     if df.empty:
         st.info("No trades yet")
+
     else:
+
         st.subheader("PnL by Setup")
         fig = px.bar(df.groupby("setup")["pnl"].sum().reset_index(),
                      x="setup", y="pnl", template="plotly_dark")
