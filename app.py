@@ -333,8 +333,8 @@ elif page=="Charts":
     btc = get_futures_price("BTCUSDT")
     sol = get_futures_price("SOLUSDT")
 
-    col1.metric("BTCUSDT.P", f"{btc:,.2f}" if btc else "n/a")
-    col2.metric("SOLUSDT.P", f"{sol:,.4f}" if sol else "n/a")
+    col1.metric("BTCUSDT", f"{btc:,.2f}" if btc else "n/a")
+    col2.metric("SOLUSDT", f"{sol:,.4f}" if sol else "n/a")
 
     # Charts
     tradingview_widget("BINANCE:BTCUSDT.P", height=450)
