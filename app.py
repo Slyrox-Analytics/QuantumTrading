@@ -142,7 +142,7 @@ st.title("⚡ QuantumTrading Terminal")
 st.caption("Trading logbook + analytics")
 
 # ---------------- SIDEBAR ----------------
-page=st.sidebar.radio("Navigation",["Dashboard","New Trade","Logbook","Analytics","Sonstiges"])
+page=st.sidebar.radio("Navigation",["Dashboard","New Trade","Logbook","Analytics","Sonstiges","Charts"])
 st.sidebar.metric("Trades",total)
 st.sidebar.metric("Total PnL",pnl)
 
@@ -187,7 +187,7 @@ if page=="Dashboard":
             st.plotly_chart(cyberpunk_plot(area),use_container_width=True)
         else:
             st.info("No trades in selected range")
-tradingview_widget()
+
 # =====================================================
 # NEW TRADE
 # =====================================================
@@ -294,3 +294,13 @@ ROI = Gewinn ÷ Margin × 100
 ### Eigene Notizen
 Hier kannst du jederzeit Code-Notizen oder Trading-Regeln eintragen.
 """)
+
+# =====================================================
+# CHARTS
+# =====================================================
+elif page=="Charts":
+
+    st.subheader("Live Charts")
+
+    tradingview_widget("BINANCE:BTCUSDT.P")
+    tradingview_widget("BINANCE:SOLUSDT.P")
