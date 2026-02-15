@@ -79,11 +79,7 @@ div[data-baseweb="select"] > div {
 def load_trades():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE,"r") as f:
-            data = json.load(f)
-            for t in data:
-                t["pnl"] = float(t.get("pnl",0))
-                t["result"] = "Win" if t["pnl"] > 0 else "Loss"
-            return data
+            return json.load(f)
     return []
 
 def save_trades(data):
@@ -96,16 +92,15 @@ df = pd.DataFrame(trades)
 # ---------------- STATS ----------------
 def stats(df):
     if df.empty:
-        return 0,0,0,0
-
+        return 0,0,0,0,0
     wins = len(df[df.pnl > 0])
+    losses = len(df[df.pnl < 0])
     total = len(df)
     pnl = df.pnl.sum()
     winrate = round((wins/total)*100,2)
+    return total,wins,losses,winrate,pnl
 
-    return total,wins,winrate,pnl
-
-total,wins,winrate,pnl = stats(df)
+total,wins,losses,winrate,pnl = stats(df)
 
 # ---------------- HEADER ----------------
 st.title("⚡ QuantumTrading Terminal")
@@ -119,23 +114,25 @@ page = st.sidebar.radio("Navigation",
 st.sidebar.markdown("### Quick Stats")
 st.sidebar.metric("Trades", total)
 st.sidebar.metric("Winrate", f"{winrate}%")
-st.sidebar.metric("Total PnL", round(pnl,2))
+st.sidebar.metric("Total PnL", pnl)
 
 # =====================================================
 # DASHBOARD
 # =====================================================
 if page == "Dashboard":
 
-    c1,c2,c3,c4 = st.columns(4)
+    c1,c2,c3,c4,c5 = st.columns(5)
 
     with c1:
         st.markdown(f'<div class="card"><h3>Trades</h3><h2>{total}</h2></div>', unsafe_allow_html=True)
     with c2:
         st.markdown(f'<div class="card"><h3>Wins</h3><h2>{wins}</h2></div>', unsafe_allow_html=True)
     with c3:
-        st.markdown(f'<div class="card"><h3>Winrate</h3><h2>{winrate}%</h2></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Losses</h3><h2>{losses}</h2></div>', unsafe_allow_html=True)
     with c4:
-        st.markdown(f'<div class="card"><h3>Total PnL</h3><h2>{round(pnl,2)}</h2></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Winrate</h3><h2>{winrate}%</h2></div>', unsafe_allow_html=True)
+    with c5:
+        st.markdown(f'<div class="card"><h3>Total PnL</h3><h2>{pnl}</h2></div>', unsafe_allow_html=True)
 
     st.divider()
 
@@ -164,16 +161,12 @@ elif page == "New Trade":
 
     if st.button("Save Trade"):
 
-        pnl_value = float(pnl_value)
-        result = "Win" if pnl_value > 0 else "Loss"
-
         trade = {
             "id": str(uuid.uuid4())[:8],
             "time": str(datetime.now()),
             "pair": pair,
             "side": side,
             "pnl": pnl_value,
-            "result": result,
             "note": note
         }
 
@@ -200,8 +193,9 @@ elif page == "Analytics":
 
     if df.empty:
         st.info("No trades yet")
+
     else:
         st.subheader("PnL by Pair")
-        fig = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
-                     x="pair", y="pnl", template="plotly_dark")
-        st.plotly_chart(fig, use_container_width=True)
+        fig2 = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
+                      x="pair", y="pnl", template="plotly_dark")
+        st.plotly_chart(fig2, use_container_width=True)
