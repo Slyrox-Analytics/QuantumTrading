@@ -173,7 +173,7 @@ if page=="Dashboard":
         st.plotly_chart(cyberpunk_plot(pie),use_container_width=True)
 
         # RANGE FILTER
-        days = st.selectbox("Range", [7,30,90,180], index=1)
+        days = st.selectbox("Range (Kumulierter PnL in Zeitraum)", [7,30,90,180], index=1)
 
         df["dt"] = pd.to_datetime(df["time"], errors="coerce")
         df["dt"] = pd.to_datetime(df["time"], errors="coerce", utc=True).dt.tz_convert(TZ)
