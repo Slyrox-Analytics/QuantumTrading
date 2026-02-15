@@ -302,5 +302,6 @@ elif page=="Charts":
 
     st.subheader("Live Charts")
 
-    tradingview_widget("BINANCE:BTCUSDT.P")
-    tradingview_widget("BINANCE:SOLUSDT.P")
+    tradingview_widget("BINANCE:BTCUSDT.P", height=450)
+    tradingview_widget("BINANCE:SOLUSDT.P", height=450)
+
