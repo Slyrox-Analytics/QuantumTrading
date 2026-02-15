@@ -103,7 +103,7 @@ total,wins,winrate,pnl = stats(df)
 
 # ---------------- HEADER ----------------
 st.title("⚡ QuantumTrading Terminal")
-st.caption("Cyberpunk trading logbook + analytics")
+st.caption("Trading logbook + analytics")
 
 # ---------------- SIDEBAR ----------------
 page = st.sidebar.radio("Navigation",
