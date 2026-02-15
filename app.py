@@ -6,8 +6,19 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 import plotly.express as px
 from components.charts import tradingview_widget
+import requests
 
-st.set_page_config(layout="wide")
+def get_futures_price(symbol: str):
+    try:
+        r = requests.get(
+            "https://fapi.binance.com/fapi/v1/ticker/price",
+            params={"symbol": symbol},
+            timeout=5
+        )
+        r.raise_for_status()
+        return float(r.json()["price"])
+    except Exception:
+        return None
 
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="QuantumTrading", layout="wide")
@@ -109,6 +120,17 @@ def save_trades(data):
 
 trades=load_trades()
 df=pd.DataFrame(trades)
+
+def get_futures_price(symbol):
+    try:
+        r = requests.get(
+            "https://fapi.binance.com/fapi/v1/ticker/price",
+            params={"symbol": symbol},
+            timeout=5
+        )
+        return float(r.json()["price"])
+    except:
+        return None
 
 # ---------------- STATS ----------------
 def stats(df):
@@ -305,6 +327,19 @@ elif page=="Charts":
 
     st.subheader("Live Charts")
 
+    # Live Preise
+    col1, col2 = st.columns(2)
+
+    btc = get_futures_price("BTCUSDT")
+    sol = get_futures_price("SOLUSDT")
+
+    col1.metric("BTCUSDT.P", f"{btc:,.2f}" if btc else "n/a")
+    col2.metric("SOLUSDT.P", f"{sol:,.4f}" if sol else "n/a")
+
+    # Charts
     tradingview_widget("BINANCE:BTCUSDT.P", height=450)
     tradingview_widget("BINANCE:SOLUSDT.P", height=450)
+
+    # Auto refresh alle 5 Sekunden
+    st.markdown("<meta http-equiv='refresh' content='5'>", unsafe_allow_html=True)
 
