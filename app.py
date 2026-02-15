@@ -132,8 +132,8 @@ if page=="Dashboard":
     with c1: st.markdown(f'<div class="card"><h3>Trades</h3><h2>{total}</h2></div>',True)
     with c2: st.markdown(f'<div class="card"><h3>Wins</h3><h2>{wins}</h2></div>',True)
     with c3: st.markdown(f'<div class="card"><h3>Losses</h3><h2>{losses}</h2></div>',True)
-    with c4: st.markdown(f'<div class="card"><h3>Total PnL</h3><h2>{pnl:g}</h2></div>',True)
-    with c5: st.markdown(f'<div class="card"><h3>Avg ROI</h3><h2>{avg_roi:.2f}%</h2></div>',True)
+    with c4: st.markdown(f'<div class="card"><h3>Total PnL (Profit & Loss)</h3><h2>{pnl:g}</h2></div>',True)
+    with c5: st.markdown(f'<div class="card"><h3>Avg ROI (Return on Investment)</h3><h2>{avg_roi:.2f}%</h2></div>',True)
 
     if not df.empty:
 
