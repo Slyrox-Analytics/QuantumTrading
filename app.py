@@ -235,3 +235,35 @@ elif page=="Analytics":
     else:
         fig=px.bar(df.groupby("pair")["pnl"].sum().reset_index(),x="pair",y="pnl",title="PnL by Pair")
         st.plotly_chart(cyberpunk_plot(fig),use_container_width=True)
+
+# =====================================================
+# SONSTIGES
+# =====================================================
+elif page=="Sonstiges":
+
+    st.header("Sonstiges / Infos")
+
+    st.markdown("""
+### Erklärung der Kennzahlen
+
+**PnL**
+→ Gewinn oder Verlust eines Trades in $
+
+**ROI**
+→ Rendite basierend auf eingesetzter Margin  
+Formel:
+ROI = Gewinn ÷ Margin × 100
+
+---
+
+### Hinweise
+
+• Range Filter zeigt nur Trades innerhalb der gewählten Tage  
+• Equity Curve = kumulierte PnL Entwicklung  
+• CSV Export speichert exakt das Logbook
+
+---
+
+### Eigene Notizen
+Hier kannst du jederzeit Code-Notizen oder Trading-Regeln eintragen.
+""")
