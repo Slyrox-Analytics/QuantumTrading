@@ -293,7 +293,7 @@ elif page == "Logbook":
         render_logbook_table(df)
 
         # Proper CSV (columns -> cells)
-        csv = df.to_csv(index=False).encode("utf-8")
+        csv = df.to_csv(index=False, sep=";", encoding="utf-8-sig").encode("utf-8-sig")
         st.download_button("Download CSV", csv, "trades.csv", "text/csv")
 
         delete_id = st.selectbox("Delete Trade", df["id"])
