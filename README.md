@@ -1,2 +1,2 @@
 # QuantumTrading
-Personal Cyberpunk Trading Terminal
+Personal Trading Terminal
