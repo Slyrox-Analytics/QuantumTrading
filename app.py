@@ -340,6 +340,3 @@ elif page=="Charts":
     tradingview_widget("BINANCE:BTCUSDT.P", height=450)
     tradingview_widget("BINANCE:SOLUSDT.P", height=450)
 
-    # Auto refresh alle 5 Sekunden
-    st.markdown("<meta http-equiv='refresh' content='5'>", unsafe_allow_html=True)
-
