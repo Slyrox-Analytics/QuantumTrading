@@ -171,7 +171,7 @@ elif page=="New Trade":
     col1,col2,col3=st.columns(3)
     with col1: side=st.selectbox("Side",["Long","Short"])
     with col2: margin=st.number_input("Margin",step=1.0)
-    with col3: pnl_value=st.number_input("PnL",step=0.1)
+    with col3: pnl_value=st.number_input("PnL (Profit & Loss)",step=0.1)
 
     note=st.text_area("Notes")
 
