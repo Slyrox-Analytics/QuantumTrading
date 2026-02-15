@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-def tradingview_widget(symbol="BINANCE:BTCUSDT.P"):
+def tradingview_widget(symbol="BINANCE:BTCUSDT.P", height=600):
 
     html = f"""
     <div id="tv_chart"></div>
@@ -23,4 +23,4 @@ def tradingview_widget(symbol="BINANCE:BTCUSDT.P"):
     </script>
     """
 
-    components.html(html, height=600)
+    components.html(html, height=height)
