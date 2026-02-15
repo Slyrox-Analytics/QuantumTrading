@@ -114,7 +114,7 @@ st.title("⚡ QuantumTrading Terminal")
 st.caption("Trading logbook + analytics")
 
 # ---------------- SIDEBAR ----------------
-page=st.sidebar.radio("Navigation",["Dashboard","New Trade","Logbook","Analytics"])
+page=st.sidebar.radio("Navigation",["Dashboard","New Trade","Logbook","Analytics","Sonstiges"])
 st.sidebar.metric("Trades",total)
 st.sidebar.metric("Total PnL",pnl)
 
