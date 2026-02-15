@@ -151,16 +151,32 @@ if page=="Dashboard":
         pie=px.pie(pie_df,names="Outcome",values="Count",hole=0.6,title="Wins vs Losses")
         st.plotly_chart(cyberpunk_plot(pie),use_container_width=True)
 
-        # RANGE FILTER
-        days=st.selectbox("Range",[7,30,90,180])
-        cutoff=datetime.now(TZ)-timedelta(days=days)
-        df["dt"]=pd.to_datetime(df["time"])
-        fdf=df[df["dt"]>cutoff]
+                # RANGE FILTER
+        days = st.selectbox("Range", [7, 30, 90, 180], index=1)
+
+        # time sicher parsen + tz-aware machen
+        df["dt"] = pd.to_datetime(df["time"], errors="coerce")
+        # falls dt tz-naiv ist, lokalisiere auf Europe/Berlin; falls tz-aware, konvertiere
+        if df["dt"].dt.tz is None:
+            df["dt"] = df["dt"].dt.tz_localize(TZ)
+        else:
+            df["dt"] = df["dt"].dt.tz_convert(TZ)
+
+        cutoff = pd.Timestamp.now(TZ) - pd.Timedelta(days=int(days))
+        fdf = df[df["dt"] >= cutoff].copy()
 
         if not fdf.empty:
-            perf=fdf.groupby(pd.Grouper(key="dt",freq="D"))["pnl"].sum().cumsum().reset_index()
-            area=px.area(perf,x="dt",y="pnl",title="Performance Trend")
-            st.plotly_chart(cyberpunk_plot(area),use_container_width=True)
+            perf = (
+                fdf.groupby(pd.Grouper(key="dt", freq="D"))["pnl"]
+                .sum()
+                .cumsum()
+                .reset_index()
+            )
+            area = px.area(perf, x="dt", y="pnl", title="Performance Trend")
+            st.plotly_chart(cyberpunk_plot(area), use_container_width=True)
+        else:
+            st.info("No trades in selected range")
+
 
 # =====================================================
 # NEW TRADE
