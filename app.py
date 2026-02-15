@@ -191,7 +191,7 @@ tradingview_widget()
 # =====================================================
 # NEW TRADE
 # =====================================================
-elif page=="New Trade":
+if page=="New Trade":
 
     pair=st.selectbox("Pair",["BTCUSDT","SOLUSDT"])
 
