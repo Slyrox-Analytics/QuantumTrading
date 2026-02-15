@@ -79,7 +79,12 @@ div[data-baseweb="select"] > div {
 def load_trades():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE,"r") as f:
-            return json.load(f)
+            data = json.load(f)
+            # safety clean
+            for t in data:
+                t["pnl"] = float(t.get("pnl",0))
+                t["result"] = "Win" if t["pnl"] > 0 else "Loss"
+            return data
     return []
 
 def save_trades(data):
@@ -93,10 +98,12 @@ df = pd.DataFrame(trades)
 def stats(df):
     if df.empty:
         return 0,0,0,0
-    wins = len(df[df.result=="Win"])
+
+    wins = len(df[df.pnl > 0])
     total = len(df)
     pnl = df.pnl.sum()
     winrate = round((wins/total)*100,2)
+
     return total,wins,winrate,pnl
 
 total,wins,winrate,pnl = stats(df)
@@ -113,7 +120,7 @@ page = st.sidebar.radio("Navigation",
 st.sidebar.markdown("### Quick Stats")
 st.sidebar.metric("Trades", total)
 st.sidebar.metric("Winrate", f"{winrate}%")
-st.sidebar.metric("Total PnL", pnl)
+st.sidebar.metric("Total PnL", round(pnl,2))
 
 # =====================================================
 # DASHBOARD
@@ -129,7 +136,7 @@ if page == "Dashboard":
     with c3:
         st.markdown(f'<div class="card"><h3>Winrate</h3><h2>{winrate}%</h2></div>', unsafe_allow_html=True)
     with c4:
-        st.markdown(f'<div class="card"><h3>Total PnL</h3><h2>{pnl}</h2></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="card"><h3>Total PnL</h3><h2>{round(pnl,2)}</h2></div>', unsafe_allow_html=True)
 
     st.divider()
 
@@ -152,14 +159,16 @@ elif page == "New Trade":
     with col1:
         side = st.selectbox("Side",["Long","Short"])
     with col2:
-        rr = st.number_input("RR (RiskReward)", step=0.1)
+        rr = st.number_input("RR (optional)", step=0.1)
     with col3:
-        pnl_value = st.number_input("PnL (Profit & Loss)", step=0.1)
+        pnl_value = st.number_input("PnL", step=0.1)
 
-    result = st.selectbox("Result",["Win","Loss"])
     note = st.text_area("Notes")
 
     if st.button("Save Trade"):
+
+        pnl_value = float(pnl_value)
+        result = "Win" if pnl_value > 0 else "Loss"
 
         trade = {
             "id": str(uuid.uuid4())[:8],
@@ -195,9 +204,8 @@ elif page == "Analytics":
 
     if df.empty:
         st.info("No trades yet")
-
     else:
         st.subheader("PnL by Pair")
-        fig2 = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
-                      x="pair", y="pnl", template="plotly_dark")
-        st.plotly_chart(fig2, use_container_width=True)
+        fig = px.bar(df.groupby("pair")["pnl"].sum().reset_index(),
+                     x="pair", y="pnl", template="plotly_dark")
+        st.plotly_chart(fig, use_container_width=True)
