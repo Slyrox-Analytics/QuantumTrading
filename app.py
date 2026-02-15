@@ -26,115 +26,71 @@ APP_NAME = "QuantumTrading Terminal"
 # CYBERPUNK THEME
 # =========================
 CYBER_CSS = """
+CYBER_CSS = """
 <style>
-/* --- Base --- */
-html, body, [class*="css"]  {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
-}
 
+/* Hintergrund */
 .stApp {
-  background: radial-gradient(1200px 800px at 30% 0%, rgba(0,255,225,0.10), rgba(0,0,0,1) 55%),
-              radial-gradient(900px 700px at 80% 10%, rgba(255,0,140,0.10), rgba(0,0,0,1) 60%),
-              linear-gradient(180deg, rgba(0,0,0,1), rgba(5,10,20,1));
+  background: radial-gradient(circle at 20% 10%, rgba(0,255,200,0.12), transparent 40%),
+              radial-gradient(circle at 80% 0%, rgba(0,120,255,0.12), transparent 40%),
+              #05070d;
   color: #d7fff7;
 }
 
-/* --- Sidebar --- */
+/* Sidebar */
 section[data-testid="stSidebar"] {
-  background: linear-gradient(180deg, rgba(5,10,20,0.95), rgba(0,0,0,0.95));
-  border-right: 1px solid rgba(0,255,225,0.25);
-  box-shadow: 0 0 30px rgba(0,255,225,0.05) inset;
+  background: linear-gradient(180deg,#03121a,#02060a);
+  border-right: 1px solid rgba(0,255,200,0.25);
 }
 
-/* --- Headers --- */
-h1, h2, h3, h4 {
-  letter-spacing: 0.5px;
+/* Sidebar Text */
+section[data-testid="stSidebar"] * {
+  color:#9ffcff !important;
 }
 
-.qt-title {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin: 0 0 8px 0;
-  text-shadow: 0 0 12px rgba(0,255,225,0.25);
+/* Sidebar Active */
+.stRadio > div {
+  background: transparent;
 }
 
-.qt-sub {
-  opacity: 0.85;
-  margin: 0 0 16px 0;
-}
-
-/* --- HUD Cards --- */
+/* HUD Cards */
 .qt-card {
-  border: 1px solid rgba(0,255,225,0.25);
-  background: linear-gradient(180deg, rgba(0,255,225,0.08), rgba(0,0,0,0.25));
-  box-shadow: 0 0 30px rgba(0,255,225,0.06);
-  border-radius: 18px;
-  padding: 16px 16px 12px 16px;
+  border:1px solid rgba(0,255,200,0.35);
+  background:rgba(0,255,200,0.05);
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 0 20px rgba(0,255,200,0.08);
 }
 
-.qt-card-red {
-  border: 1px solid rgba(255,0,140,0.25);
-  background: linear-gradient(180deg, rgba(255,0,140,0.08), rgba(0,0,0,0.25));
-  box-shadow: 0 0 30px rgba(255,0,140,0.06);
+/* Inputs */
+input, textarea {
+  background:#02141c !important;
+  color:#bffcff !important;
+  border:1px solid rgba(0,255,200,0.4) !important;
 }
 
-/* --- Buttons --- */
-.stButton>button {
-  border-radius: 14px;
-  border: 1px solid rgba(0,255,225,0.35);
-  background: rgba(0,255,225,0.08);
-  color: #d7fff7;
-  padding: 10px 14px;
-  box-shadow: 0 0 18px rgba(0,255,225,0.06);
-}
-.stButton>button:hover {
-  border: 1px solid rgba(0,255,225,0.70);
-  background: rgba(0,255,225,0.14);
-  box-shadow: 0 0 28px rgba(0,255,225,0.12);
-}
-
-/* --- Inputs --- */
-div[data-baseweb="input"] input, div[data-baseweb="textarea"] textarea {
-  border-radius: 14px !important;
-  border: 1px solid rgba(0,255,225,0.25) !important;
-  background: rgba(0,0,0,0.35) !important;
-  color: #d7fff7 !important;
-}
+/* Selectbox */
 div[data-baseweb="select"] > div {
-  border-radius: 14px !important;
-  border: 1px solid rgba(0,255,225,0.25) !important;
-  background: rgba(0,0,0,0.35) !important;
-  color: #d7fff7 !important;
+  background:#02141c !important;
+  border:1px solid rgba(0,255,200,0.4) !important;
 }
 
-/* --- DataFrame --- */
-div[data-testid="stDataFrame"] {
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(0,255,225,0.22);
+/* Buttons */
+.stButton button {
+  background:#02141c;
+  border:1px solid rgba(0,255,200,0.6);
+  color:#9ffcff;
 }
 
-/* --- Subtle scanlines overlay --- */
-.qt-scanlines:before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.02),
-    rgba(255,255,255,0.02) 1px,
-    rgba(0,0,0,0) 3px,
-    rgba(0,0,0,0) 6px
-  );
-  mix-blend-mode: overlay;
-  opacity: 0.18;
+.stButton button:hover {
+  background:#03232c;
+  border:1px solid #00ffd0;
+  box-shadow:0 0 15px rgba(0,255,200,0.3);
 }
 
-/* --- Small text tweaks --- */
-small, .qt-muted { opacity: 0.8; }
 </style>
+"""
+
 <div class="qt-scanlines"></div>
 """
 st.markdown(CYBER_CSS, unsafe_allow_html=True)
