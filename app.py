@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import plotly.express as px
-
+from components.charts import tradingview_widget
 # ---------------- CONFIG ----------------
 st.set_page_config(page_title="QuantumTrading", layout="wide")
 DATA_FILE = "trades.json"
