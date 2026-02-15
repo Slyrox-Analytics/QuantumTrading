@@ -152,9 +152,9 @@ elif page == "New Trade":
     with col1:
         side = st.selectbox("Side",["Long","Short"])
     with col2:
-        rr = st.number_input("RR", step=0.1)
+        rr = st.number_input("RR (RiskReward)", step=0.1)
     with col3:
-        pnl_value = st.number_input("PnL", step=0.1)
+        pnl_value = st.number_input("PnL (Profit & Loss)", step=0.1)
 
     result = st.selectbox("Result",["Win","Loss"])
     note = st.text_area("Notes")
