@@ -32,10 +32,16 @@ section[data-testid="stSidebar"] * {
     color:#9ffcff !important;
 }
 
-/* SIDEBAR METRIC FIX */
+/* SIDEBAR METRIC */
 section[data-testid="stSidebar"] div[data-testid="stMetricValue"] {
     color:#00ffd0 !important;
     font-weight:bold;
+}
+
+/* -------- LABEL TEXT FIX -------- */
+label {
+    color:#00ffd0 !important;
+    font-weight:600 !important;
 }
 
 /* INPUTS */
@@ -45,7 +51,6 @@ div[data-testid="stTextArea"] textarea {
     background:#02141c !important;
     color:#cfffff !important;
     border:1px solid rgba(0,255,200,0.6) !important;
-    border-radius:10px !important;
 }
 
 /* SELECT */
@@ -60,7 +65,6 @@ div[data-baseweb="select"] > div {
     background:#02141c;
     border:1px solid rgba(0,255,200,0.6);
     color:#9ffcff;
-    border-radius:12px;
 }
 
 .stButton button:hover {
@@ -80,6 +84,7 @@ div[data-baseweb="select"] > div {
 
 </style>
 """, unsafe_allow_html=True)
+
 
 # ---------------- DATA ----------------
 def load_trades():
