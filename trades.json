@@ -34,5 +34,14 @@
     "margin": 100.0,
     "pnl": 24.0,
     "note": ""
+  },
+  {
+    "id": "Trade5",
+    "time": "2026-02-16 20:11:13",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 122.0,
+    "pnl": 242.0,
+    "note": ""
   }
 ]
