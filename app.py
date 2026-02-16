@@ -151,7 +151,7 @@ def cyberpunk_plot(fig):
     return fig
 
 # ---------------- HEADER ----------------
-st.title("⚡ QuantumTrading Terminal")
+st.title("Trading Terminal")
 st.caption("Trading logbook + analytics")
 
 # ---------------- SIDEBAR ----------------
