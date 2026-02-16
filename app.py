@@ -158,6 +158,7 @@ st.caption("Trading logbook + analytics")
 page=st.sidebar.radio("Navigation",["Dashboard","New Trade","Logbook","Analytics","Sonstiges","Charts"])
 st.sidebar.metric("Trades",total)
 st.sidebar.metric("Total PnL",pnl)
+st.sidebar.metric("Avg ROI",roi)
 
 if st.sidebar.button("Reset ALL Data"):
     save_trades([])
