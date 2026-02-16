@@ -306,8 +306,78 @@ ROI = Gewinn ÷ Margin × 100
 ---
 
 ### Eigene Notizen
-Hier kannst du jederzeit Code-Notizen oder Trading-Regeln eintragen.
-""")
+📊 Marktstruktur – SMC Basics
+
+BoS (Break of Structure)
+→ Markt bricht vorheriges High/Low
+→ bestätigt Trendfortsetzung
+
+CHoCH (Change of Character)
+→ erster Bruch gegen aktuellen Trend
+→ mögliches Trend-Ende / Reversal Signal
+
+👉 Regel
+BoS = Trend bestätigt
+CHoCH = Trend könnte wechseln
+
+🧱 Order Blocks
+
+Bullish OB (Support)
+→ letzte rote Kerze vor starkem Move nach oben
+→ mögliche Reaktionszone für Longs
+
+Bearish OB (Resistance)
+→ letzte grüne Kerze vor starkem Move nach unten
+→ mögliche Short-Zone
+
+👉 Wichtig
+OB ≠ Entry
+OB = Reaktionsbereich
+
+🌊 Fair Value Gap (FVG)
+
+→ ineffizienter Preisbereich zwischen 3 Kerzen
+→ Markt kehrt oft zurück um Gap zu „füllen“
+
+Nutzen:
+Entry Zone
+TP Target
+Confirmation Level
+
+📈 Heiken Ashi Zweck
+
+Nicht für Entry — nur für Trendvisualisierung
+
+Hilft bei:
+Trendrichtung erkennen
+Noise filtern
+Momentum sehen
+
+🔥 Heatmap / DOM (Orderflow)
+
+Zeigt reale Orders im Markt
+
+Wichtige Signale:
+große Limit Orders → Support/Resistance
+aggressive Market Orders → Momentum
+Delta Imbalance → Käufer vs Verkäufer Stärke
+
+🎯 Entry-Bestätigung (High Probability Setup)
+
+Trade nur wenn:
+
+✔ Strukturbruch (BoS oder CHoCH)
+✔ Reaktion an OB oder FVG
+✔ Orderflow bestätigt Richtung
+✔ klares CRV ≥ 2
+
+Wenn eins fehlt → kein Trade
+
+🧠 Regelwerk (Mindset Filter)
+
+kein Setup → kein Trade
+kein Confirmation → kein Entry
+Emotion ≠ Signal
 
 # =========================
 # CHARTS PAGE
