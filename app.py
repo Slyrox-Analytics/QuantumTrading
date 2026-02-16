@@ -377,7 +377,7 @@ Wenn eins fehlt → kein Trade
 
 kein Setup → kein Trade
 kein Confirmation → kein Entry
-Emotion ≠ Signal
+Emotion ≠ Signal""")
 
 # =========================
 # CHARTS PAGE
