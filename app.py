@@ -111,13 +111,13 @@ df=pd.DataFrame(trades)
 
 def get_futures_price(symbol):
     try:
-        r = requests.get(
-            "https://fapi.binance.com/fapi/v1/ticker/price",
-            params={"symbol": symbol},
-            timeout=5
-        )
-        return float(r.json()["price"])
-    except:
+        url = f"https://fapi.binance.com/fapi/v1/ticker/price?symbol={symbol}"
+        r = requests.get(url, timeout=5)
+        data = r.json()
+        if "price" in data:
+            return float(data["price"])
+        return None
+    except Exception as e:
         return None
 
 # ---------------- STATS ----------------
