@@ -120,6 +120,42 @@ def get_futures_price(symbol):
     except Exception as e:
         return None
 
+# ===== NOTES STORAGE =====
+NOTES_FILE = "notes.json"
+IMG_FOLDER = "notes_images"
+
+def load_notes():
+    url = f"https://api.github.com/repos/{REPO}/contents/{NOTES_FILE}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    r = requests.get(url, headers=headers)
+    if r.status_code == 200:
+        content = base64.b64decode(r.json()["content"]).decode()
+        return json.loads(content)
+    return []
+
+def save_notes(data):
+    url = f"https://api.github.com/repos/{REPO}/contents/{NOTES_FILE}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    r = requests.get(url, headers=headers)
+    sha = r.json()["sha"] if r.status_code == 200 else None
+    encoded = base64.b64encode(json.dumps(data, indent=2).encode()).decode()
+    requests.put(url, headers=headers, json={
+        "message": "update notes",
+        "content": encoded,
+        "sha": sha
+    })
+
+def upload_note_image(file):
+    filename = f"{int(datetime.now().timestamp())}_{file.name}"
+    url = f"https://api.github.com/repos/{REPO}/contents/{IMG_FOLDER}/{filename}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    content = base64.b64encode(file.read()).decode()
+    requests.put(url, headers=headers, json={
+        "message": "upload note image",
+        "content": content
+    })
+    return f"https://raw.githubusercontent.com/{REPO}/main/{IMG_FOLDER}/{filename}"
+
 # ---------------- STATS ----------------
 def stats(df):
     if df.empty or "pnl" not in df.columns:
