@@ -438,36 +438,39 @@ kein Confirmation → kein Entry
 Emotion ≠ Signal
 """)
 
-st.divider()
-st.subheader("📸 Screenshot Notizen")
+    st.divider()
+    st.subheader("📸 Screenshot Notizen")
 
-notes = load_notes()
+    notes = load_notes()
 
-img = st.file_uploader("Screenshot hochladen", type=["png","jpg","jpeg"])
-text = st.text_area("Notiz")
+    img = st.file_uploader("Screenshot hochladen", type=["png","jpg","jpeg"])
+    text = st.text_area("Notiz")
 
-if st.button("Speichern Screenshot"):
-    if img:
-        url = upload_note_file(img,"notes_images")
-        notes.append({"img": url, "text": text})
-        save_notes(notes)
-        st.rerun()
+    if st.button("Speichern Screenshot"):
+        if img:
+            url = upload_note_file(img,"notes_images")
+            notes.append({"img": url, "text": text})
+            save_notes(notes)
+            st.rerun()
 
-for n in reversed(notes):
-    if "img" in n:
-        st.image(n["img"], use_container_width=True)
+    for n in reversed(notes):
+        if "img" in n:
+            st.image(n["img"], use_container_width=True)
 
-    if "video" in n:
-        st.video(n["video"])
+        if "video" in n:
+            st.video(n["video"])
 
-    if n.get("text"):
-        st.markdown(n["text"])
+        if n.get("text"):
+            st.markdown(n["text"])
 
         st.divider()
 
+
 # =========================
 # CHARTS PAGE
+# =========================
 elif page == "Charts":
+
 
 
     # --- Ticker oben ---
