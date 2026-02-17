@@ -469,6 +469,7 @@ for n in reversed(notes):
 # CHARTS PAGE
 elif page == "Charts":
 
+
     # --- Ticker oben ---
     st.components.v1.html("""
     <div class="tradingview-widget-container">
