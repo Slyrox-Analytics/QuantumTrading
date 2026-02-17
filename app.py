@@ -463,11 +463,10 @@ for n in reversed(notes):
     if n.get("text"):
         st.markdown(n["text"])
 
-    st.divider()
+        st.divider()
 
 # =========================
 # CHARTS PAGE
-# =========================
 elif page == "Charts":
 
     # --- Ticker oben ---
