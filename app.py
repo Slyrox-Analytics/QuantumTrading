@@ -378,6 +378,23 @@ kein Setup → kein Trade
 kein Confirmation → kein Entry
 Emotion ≠ Signal""")
 
+# ================= SCREENSHOT NOTES =================
+st.divider()
+st.subheader("📸 Screenshot Notizen")
+
+uploaded_imgs = st.file_uploader(
+    "Screenshots hochladen",
+    type=["png","jpg","jpeg"],
+    accept_multiple_files=True
+)
+
+if uploaded_imgs:
+    cols = st.columns(2)
+    for i, img in enumerate(uploaded_imgs):
+        with cols[i % 2]:
+            st.image(img, use_container_width=True)
+            st.text_area("Notiz", key=f"note_{i}")
+
 # =========================
 # CHARTS PAGE
 # =========================
