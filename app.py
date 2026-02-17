@@ -5,6 +5,26 @@ import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import plotly.express as px
+
+# ================= LOGIN PROTECTION =================
+if "auth" not in st.session_state:
+    st.session_state.auth = False
+
+if not st.session_state.auth:
+    st.title("🔒 Login")
+
+    pw = st.text_input("Passwort", type="password")
+
+    if st.button("Login"):
+        if pw == st.secrets["APP_PASSWORD"]:
+            st.session_state.auth = True
+            st.rerun()
+        else:
+            st.error("Falsches Passwort")
+
+    st.stop()
+# ====================================================
+
 from components.charts import tradingview_widget
 
 
