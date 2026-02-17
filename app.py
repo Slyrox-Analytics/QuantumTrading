@@ -454,17 +454,16 @@ if st.button("Speichern Screenshot"):
         st.rerun()
 
 for n in reversed(notes):
+    if "img" in n:
+        st.image(n["img"], use_container_width=True)
 
-if "img" in n:
-    st.image(n["img"], use_container_width=True)
+    if "video" in n:
+        st.video(n["video"])
 
-if "video" in n:
-    st.video(n["video"])
+    if n.get("text"):
+        st.markdown(n["text"])
 
- if n.get("text"):
-    st.markdown(n["text"])
-
-st.divider()
+    st.divider()
 
 # =========================
 # CHARTS PAGE
