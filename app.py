@@ -414,26 +414,26 @@ kein Setup → kein Trade
 kein Confirmation → kein Entry
 Emotion ≠ Signal""")
 
-st.divider()
-st.subheader("📸 Screenshot Notizen")
-
-notes = load_notes()
-
-img = st.file_uploader("Screenshot hochladen", type=["png","jpg","jpeg"])
-text = st.text_area("Notiz")
-
-if st.button("Speichern Screenshot"):
-    if img:
-        url = upload_note_image(img)
-        notes.append({"img": url, "text": text})
-        save_notes(notes)
-        st.rerun()
-
-for n in reversed(notes):
-    st.image(n["img"], use_container_width=True)
-    if n["text"]:
-        st.markdown(n["text"])
-    st.divider()
+ st.divider()
+ st.subheader("📸 Screenshot Notizen")
+ 
+ notes = load_notes()
+ 
+ img = st.file_uploader("Screenshot hochladen", type=["png","jpg","jpeg"])
+ text = st.text_area("Notiz")
+ 
+ if st.button("Speichern Screenshot"):
+     if img:
+         url = upload_note_image(img)
+         notes.append({"img": url, "text": text})
+         save_notes(notes)
+         st.rerun()
+ 
+ for n in reversed(notes):
+     st.image(n["img"], use_container_width=True)
+     if n["text"]:
+         st.markdown(n["text"])
+     st.divider()
 
 # =========================
 # CHARTS PAGE
