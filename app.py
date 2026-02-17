@@ -165,16 +165,19 @@ def save_notes(data):
         "sha": sha
     })
 
-def upload_note_image(file):
+def upload_note_file(file, folder):
     filename = f"{int(datetime.now().timestamp())}_{file.name}"
-    url = f"https://api.github.com/repos/{REPO}/contents/{IMG_FOLDER}/{filename}"
+    url = f"https://api.github.com/repos/{REPO}/contents/{folder}/{filename}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+
     content = base64.b64encode(file.read()).decode()
+
     requests.put(url, headers=headers, json={
-        "message": "upload note image",
+        "message": "upload file",
         "content": content
     })
-    return f"https://raw.githubusercontent.com/{REPO}/main/{IMG_FOLDER}/{filename}"
+
+    return f"https://raw.githubusercontent.com/{REPO}/main/{folder}/{filename}"
 
 # ---------------- STATS ----------------
 def stats(df):
@@ -445,16 +448,23 @@ Emotion ≠ Signal
 
     if st.button("Speichern Screenshot"):
         if img:
-            url = upload_note_image(img)
+            url = upload_note_file(img,"notes_images")
             notes.append({"img": url, "text": text})
             save_notes(notes)
             st.rerun()
 
     for n in reversed(notes):
+
+    if "img" in n:
         st.image(n["img"], use_container_width=True)
-        if n["text"]:
-            st.markdown(n["text"])
-        st.divider()
+
+    if "video" in n:
+        st.video(n["video"])
+
+    if n.get("text"):
+        st.markdown(n["text"])
+
+    st.divider()
 
 # =========================
 # CHARTS PAGE
