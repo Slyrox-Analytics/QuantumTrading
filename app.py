@@ -299,7 +299,6 @@ ROI = Gewinn ÷ Margin × 100
 
 ### Hinweise
 
-• Range Filter zeigt nur Trades innerhalb der gewählten Tage  
 • Equity Curve = kumulierte PnL Entwicklung  
 • CSV Export speichert exakt das Logbook
 
