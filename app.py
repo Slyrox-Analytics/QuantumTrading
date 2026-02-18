@@ -446,28 +446,21 @@ Emotion ≠ Signal
     img = st.file_uploader("Screenshot hochladen", type=["png","jpg","jpeg"])
     text = st.text_area("Notiz")
 
-if st.button("Speichern Screenshot"):
-    if img:
-        url = upload_note_file(img,"notes_images")
-        notes.append({"img": url, "text": text})
-        save_notes(notes)
-        st.rerun()
-
-    st.subheader("🎥 Video Notizen")
-
-video = st.file_uploader("Video hochladen", type=["mp4","mov","webm"])
-
-if st.button("Video speichern"):
-    if video:
-        url = upload_note_file(video,"notes_videos")
-        notes.append({"video": url})
-        save_notes(notes)
-        st.rerun()
-
     if st.button("Speichern Screenshot"):
         if img:
             url = upload_note_file(img,"notes_images")
             notes.append({"img": url, "text": text})
+            save_notes(notes)
+            st.rerun()
+
+    st.subheader("🎥 Video Notizen")
+
+    video = st.file_uploader("Video hochladen", type=["mp4","mov","webm"])
+
+    if st.button("Video speichern"):
+        if video:
+            url = upload_note_file(video,"notes_videos")
+            notes.append({"video": url})
             save_notes(notes)
             st.rerun()
 
