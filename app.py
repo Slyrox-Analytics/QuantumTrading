@@ -464,7 +464,11 @@ Emotion ≠ Signal
             save_notes(notes)
             st.rerun()
 
-    for n in reversed(notes):
+    for i,n in enumerate(reversed(notes)):
+
+    col1,col2 = st.columns([10,1])
+
+    with col1:
         if "img" in n:
             st.image(n["img"], use_container_width=True)
 
@@ -474,7 +478,15 @@ Emotion ≠ Signal
         if n.get("text"):
             st.markdown(n["text"])
 
-        st.divider()
+    with col2:
+        if st.button("🗑", key=f"del{i}"):
+
+            real_index = len(notes)-1-i
+            notes.pop(real_index)
+            save_notes(notes)
+            st.rerun()
+
+    st.divider()
 
 
 # =========================
