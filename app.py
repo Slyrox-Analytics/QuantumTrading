@@ -464,29 +464,28 @@ Emotion ≠ Signal
             save_notes(notes)
             st.rerun()
 
-    for i,n in enumerate(reversed(notes)):
+    for i, n in enumerate(reversed(notes)):
 
-    col1,col2 = st.columns([10,1])
+        col1, col2 = st.columns([10, 1])
 
-    with col1:
-        if "img" in n:
-            st.image(n["img"], use_container_width=True)
+        with col1:
+            if "img" in n:
+                st.image(n["img"], use_container_width=True)
 
-        if "video" in n:
-            st.video(n["video"])
+            if "video" in n:
+                st.video(n["video"])
 
-        if n.get("text"):
-            st.markdown(n["text"])
+            if n.get("text"):
+                st.markdown(n["text"])
 
-    with col2:
-        if st.button("🗑", key=f"del{i}"):
+        with col2:
+            if st.button("🗑", key=f"del_{i}"):
+                real_index = len(notes) - 1 - i
+                notes.pop(real_index)
+                save_notes(notes)
+                st.rerun()
 
-            real_index = len(notes)-1-i
-            notes.pop(real_index)
-            save_notes(notes)
-            st.rerun()
-
-    st.divider()
+        st.divider()
 
 
 # =========================
