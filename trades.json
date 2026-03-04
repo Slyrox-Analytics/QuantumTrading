@@ -7,5 +7,14 @@
     "margin": 75.0,
     "pnl": 2.8,
     "note": ""
+  },
+  {
+    "id": "Trade2",
+    "time": "2026-03-04 17:36:14",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 75.0,
+    "pnl": 9.59,
+    "note": ""
   }
 ]
