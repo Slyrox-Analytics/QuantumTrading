@@ -412,5 +412,14 @@
     "margin": 200.0,
     "pnl": -6.352,
     "note": ""
+  },
+  {
+    "id": "Trade47",
+    "time": "2026-03-18 21:00:14",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 200.0,
+    "pnl": -4.527,
+    "note": ""
   }
 ]
