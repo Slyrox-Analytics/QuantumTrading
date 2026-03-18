@@ -187,5 +187,14 @@
     "margin": 200.0,
     "pnl": 12.25,
     "note": ""
+  },
+  {
+    "id": "Trade22",
+    "time": "2026-03-18 20:55:34",
+    "pair": "BTCUSDT",
+    "side": "Short",
+    "margin": 200.0,
+    "pnl": 9.546,
+    "note": ""
   }
 ]
