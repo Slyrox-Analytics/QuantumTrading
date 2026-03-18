@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "Trade1",
+    "time": "2026-03-18 20:50:43",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 200.0,
+    "pnl": -2.175,
+    "note": ""
+  }
+]
