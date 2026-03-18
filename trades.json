@@ -286,5 +286,14 @@
     "margin": 200.0,
     "pnl": 43.659,
     "note": ""
+  },
+  {
+    "id": "Trade33",
+    "time": "2026-03-18 20:57:56",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 200.0,
+    "pnl": 50.743,
+    "note": ""
   }
 ]
