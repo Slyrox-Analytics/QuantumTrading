@@ -403,5 +403,14 @@
     "margin": 200.0,
     "pnl": -1.998,
     "note": ""
+  },
+  {
+    "id": "Trade46",
+    "time": "2026-03-18 21:00:03",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 200.0,
+    "pnl": -6.352,
+    "note": ""
   }
 ]
