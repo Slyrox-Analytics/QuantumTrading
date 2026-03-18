@@ -214,5 +214,14 @@
     "margin": 200.0,
     "pnl": -6.426,
     "note": ""
+  },
+  {
+    "id": "Trade25",
+    "time": "2026-03-18 20:56:15",
+    "pair": "BTCUSDT",
+    "side": "Long",
+    "margin": 200.0,
+    "pnl": -4.809,
+    "note": ""
   }
 ]
