@@ -457,5 +457,14 @@
     "margin": 200.0,
     "pnl": -3.939,
     "note": ""
+  },
+  {
+    "id": "Trade52",
+    "time": "2026-03-19 14:45:18",
+    "pair": "BTCUSDT",
+    "side": "Short",
+    "margin": 200.0,
+    "pnl": 57.504,
+    "note": ""
   }
 ]
